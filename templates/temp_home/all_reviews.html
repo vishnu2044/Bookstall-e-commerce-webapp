@@ -1,0 +1,86 @@
+{% extends 'temp_home/base.html' %}
+{% block title %} Product detail {% endblock title %}
+
+        {% block content %} 
+
+
+        <div class="d-flex">
+
+            <div class="col-8" style="background-color: rgb(255, 255, 255); border: 2px solid rgb(237, 237, 237);">
+                <h2>reviews</h2>
+                <h5>{% if review_rate >= 4 %}
+                <span style="color: rgb(3, 153, 25);">Rating: {{ review_rate }}</span>
+                {% elif review_rate >= 3 %}
+                <span style="color: rgb(189, 199, 49);">Rating: {{ review_rate }}</span>
+                {% else %}
+                <span style="color: red;">Rating: {{ review_rate }}</span>
+                {% endif %}</h5>
+                
+                <div class="col-12">
+                    {% for review in product_reviews %}
+                    <div class="comment-list" style="background-color: rgb(255, 255, 255); border: 2px solid rgb(246, 242, 242);" >
+                        <div class="single-comment justify-content-between d-flex">
+                            <div class="user justify-content-between p-3">
+                                <div class="desc">
+                                    <div class="d-flex align-items-center"> <!-- Add this div for icon -->
+                                        <i class="fa fa-user-circle"></i> <!-- Assuming you're using Font Awesome for icons -->
+                                        <h5 class="ml-2">{{ review.user.first_name }} {{ review.user.last_name }}, 
+                                            {% if review.rating == 5 %}
+                                            <span style="color: rgb(3, 153, 25);">Rating: {{ review.rating }}</span>
+                                            {% elif review.rating == 4 %}
+                                            <span style="color: rgb(3, 153, 25);">Rating: {{ review.rating }}</span>
+                                            {% elif review.rating == 3 %}
+                                            <span style="color: rgb(189, 199, 49);">Rating: {{ review.rating }}</span>
+                                            {% else %}
+                                            <span style="color: red;">Rating: {{ review.rating }}</span>
+                                            {% endif %}
+                                        </h5>
+                                    </div>
+                                    <p class="comment">{{ review.text }}</p>
+                                    <div class="reply-btn">
+                                        <h6 class='text-black'>{{ review.created_at }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+                
+                <br>
+
+            </div>
+
+            <div class="col-4" style="background-color: rgb(255, 255, 255); border: 2px solid rgb(246, 242, 242);" >
+               <div class=" p-4" style="background-color: rgb(255, 255, 255)">
+                 <h4>Add a review</h4>
+                 <form class="form-contact contact_form" action="{% url 'user_product_review' product.id %}" method="post">
+                    {% csrf_token %}
+                  <div class="row col-12 d-flex">
+                        <div class="form-group col-12">
+                            <textarea class="form-control w-100" name="review" id="review"  rows="4"  placeholder=" Enter Message"></textarea>
+                        </div>
+                        <div class="form-group col-12">
+                            <input class="form-control valid" name="rating" id="rating" type="number" placeholder="Enter rating from 1 to 5..">
+                        </div>
+                  </div>
+                  <div class="form-group col-12">
+                      <button type="submit" class="genric-btn danger circle">Send</button>
+                  </div>
+              </form>
+              <div class="form-group col-12">
+                <button type="submit" class="genric-btn info circle">Back to Product page</button>
+            </div>
+               </div>
+             </div>
+             
+
+        </div>
+        <br>
+        
+
+      
+        <!-- Watch Choice  End-->
+        {% endblock content %}
+        

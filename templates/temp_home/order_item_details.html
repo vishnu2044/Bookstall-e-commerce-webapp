@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Invoice</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/assets/css/invoice.css">
+    </head>
+    <body>
+       
+        <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 padding">
+            <div class="card">
+                <div class="card-header p-4">
+                    <a class="pt-2 d-inline-block" href="{% url 'home' %}" data-abc="true">bookstallecom.com</a>
+                    <div class="float-right">
+                        <h3 class="mb-0">Order Id : {{ order_item.order.order_id }}</h3>
+                        Date: {{ order_item.order.created_at }}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-sm-6">
+                            <h5 class="mb-3">From:</h5>
+                            <h3 class="text-dark mb-1">BookStall ecom</h3>
+                            <div>29, Singla Street</div>
+                            <div>Sikeston, New Delhi 110034</div>
+                            <div>Email: bookstallecom@gmail.com</div>
+                            <div>Phone: +91 123 456 789</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <h5 class="mb-3">To:</h5>
+                            <h3 class="text-dark mb-1">{{ order_item.order.address.fullname }}</h3>
+                            <div>{{ order_item.order.address.house_name }}, {{ order_item.order.address.city }}</div>
+                            <div>{{ order_item.order.address.landmark }}, {{ order_item.order.address.district }}</div>
+                            <div> {{ order_item.order.address.state }}, {{ order_item.order.address.country }}, {{ order_item.order.address.pincode }}</div>
+                            <div>Email: {{ order_item.order.user.email }}</div>
+                            <div>Phone: {{ order_item.order.address.contact_number }}</div>
+                        </div>
+                    </div>
+                    <div class="table-responsive-sm">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="center">S.No</th>
+                                    <th>Item</th>
+                                    <th class="center">Quantity</th>
+                                    <th class="right">price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tbody>
+                                    <tr>
+                                        <td class="center"> 1 </td>
+                                        <td class="left strong">{{ order_item.product.product_name }}</td>
+                                        <td class="center">{{ order_item.quantity }}</td>
+                                        {% if order_item.product.category.offer %}
+                                            <td class="right">₹ {{ order_item.product.get_offer_price_by_category }}</td>
+                                        {% elif order_item.product.offer %}
+                                            <td class="right">₹ {{ order_item.product.get_offer_price }}</td>
+                                        {% else %}
+                                            <td class="right">₹ {{ order_item.product_price }}</td>
+                                        {% endif %}
+                                    </tr>
+                                </tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-5">
+                        </div>
+                        <div class="col-lg-4 col-sm-5 ml-auto">
+                            <table class="table table-clear">
+                                <tbody>
+                                    <tr>
+                                        <td class="left">
+                                            <strong class="text-dark">Total</strong>
+                                        </td>
+                                        {% if order_item.product.category.offer %}
+                                        <td class="right">
+                                            <strong class="text-dark">₹ {{ order_item.sub_total }}</strong>
+                                        </td>
+                                        {% elif order_item.product.category.offer %}
+                                        <td class="right">
+                                            <strong class="text-dark">₹ {{ order_item.sub_total_with_category_offer }}</strong>
+                                        </td>
+                                        {% elif order_item.product.offer %}
+                                        <td class="right">
+                                            <strong class="text-dark">₹ {{ order_item.sub_total_with_offer }}</strong>
+                                        </td>
+                                        {% endif %}
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="d-print-none mt-4">
+                        <div class="float-end">
+                            <a href="javascript:window.print()" class="btn btn-info btn-icon-text">Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-dark">
+                    <p class="mb-0 text-white">bookstallecom.com, South Block, New Delhi, 110034</p>
+                </div>
+            </div>
+        </div>
+        
+
+
+        
+        <script src="" async defer></script>
+    </body>
+</html>

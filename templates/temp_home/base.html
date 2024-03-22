@@ -1,0 +1,290 @@
+{% load static %}
+<!doctype html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>
+        {% block title %} {% endblock title %}
+    </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/assets/img/favicon.ico">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <!-- CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+
+
+    <!-- CSS here -->
+        <link rel="stylesheet" href="/static/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/assets/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="/static/assets/css/flaticon.css">
+        <link rel="stylesheet" href="/static/assets/css/slicknav.css">
+        <link rel="stylesheet" href="/static/assets/css/animate.min.css">
+        <link rel="stylesheet" href="/static/assets/css/magnific-popup.css">
+        <link rel="stylesheet" href="/static/assets/css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="/static/assets/css/themify-icons.css">
+        <link rel="stylesheet" href="/static/assets/css/slick.css">
+        <link rel="stylesheet" href="/static/assets/css/nice-select.css">
+        <link rel="stylesheet" href="/static/assets/css/style.css">
+</head>
+<body>
+    <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="{% url 'home' %}"><img src="/static/assets/img/logo/bookstall_logo (1).png" alt=""></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>                                                
+                                <ul id="navigation">  
+                                    <li><a href="{% url 'home' %}">Home</a></li>
+                                    <li class="hot"><a href="{% url 'shop' %}">Shop</a></li>
+                                    
+                                    <li ><a href="{% url 'authors_page' %}">Authors</a>
+                                    </li>
+
+                                    <li><a href="{% url 'about' %}">About</a></li>
+                                    <li><a href="#"><span class="flaticon-user"></span></a>
+                                        {% if user.is_authenticated and user.is_superuser %}
+                                        <ul class="submenu">
+                                            <li><a href="{% url 'user_profile' %}">{{ user.username}} </a></li>
+                                            <li><a href="{% url 'user_order_list' %}">My orders</a></li>
+                                            <li><a href="{% url 'user_logout' %}">Log out </a></li>
+                                            <li><a href="{% url 'admin_dashboard' %}">Admin Panel </a></li>
+                                        </ul>
+                                    {% elif user.is_authenticated %}
+                                        <ul class="submenu">
+                                            <li><a href="{% url 'user_profile' %}">{{ user.username}} </a></li>
+                                            <li><a href="{% url 'user_order_list' %}">My orders</a></li>
+                                            <li><a href="{% url 'user_logout' %}">Log out </a></li>
+                                        </ul>
+                                    {% else %}
+                                        <ul class="submenu">
+                                            <li><a href="{% url 'handle_login' %}">Log In </a></li>
+                                            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                                            <li><a href="{% url 'otp_login' %}">OTP Login</a></li>
+                                        </ul>
+                                    {% endif %}
+                                    
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Header Right -->
+                        <div class="header-right">
+                            <ul>
+                                {% block search %} {% endblock search %}
+
+
+                                <li><a href="{% url 'cart' %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-cart" viewBox="0 0 16 16">
+                                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                      </svg>
+                                    </a> 
+                                </li>
+                                <li>
+                                    <a href="">----</a>
+                                </li>
+                
+                                <li><a href="{% url 'wishlist_view' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-bag-heart" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5Zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0ZM14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1ZM8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+                                            </svg>
+                                        
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                <!-- Notifications container -->
+                                <div class="container">
+                                    {% for message in messages %}
+                                    <div class="alert 
+                                    {% if message.tags == 'success' %}alert-success
+                                    {% elif message.tags == 'error' %}alert-danger
+                                    {% elif message.tags == 'warning' %}alert-warning
+                                    {% endif %} alert-dismissible fade show" role="alert">
+                                        <strong>Message:</strong> {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            
+                                <!-- Rest of your content -->
+
+        <!-- Header End -->
+    </header>
+
+    {% block content %} {% endblock content %}
+
+<!-- END BOX -->
+    <div class="shop-method-area">
+        <div class="container">
+            <div class="method-wrapper">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="single-method mb-40">
+                            <i class="ti-package"></i>
+                            <h6>Free Shipping Method</h6>
+                            <p>We offer free shipping for all of our products.</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="single-method mb-40">
+                            <i class="ti-unlock"></i>
+                            <h6>Secure Payment System</h6>
+                            <p>BookStall ensures a secure payment system, providing peace of mind for seamless transactions.</p>
+                        </div>
+                    </div> 
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="single-method mb-40">
+                            <i class="ti-reload"></i>
+                            <h6>Premium Books</h6>
+                            <p>Discover a world of knowledge with our curated collection of premium quality books.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </main>
+
+    <footer>
+        <!-- Footer Start-->
+        <div class="footer-area footer-padding">
+            <div class="container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="single-footer-caption mb-30">
+                                <!-- logo -->
+                                <div class="footer-logo">
+                                    <a href="{% url 'home' %}"><img src="static/assets/img/logo/bookstall_logo (1).png" alt=""></a>
+                                </div>
+                                <div class="footer-tittle">
+                                    <div class="footer-pera">
+                                        <p>"The world's knowledge at your fingertips."</p>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-5">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Quick Links</h4>
+                                <ul>
+                                    <li><a href="{% url 'about' %}">About</a></li>
+                                    <li><a href="{% url 'signup' %}"> Create a new acount</a></li>
+                                    <li><a href="{% url 'handle_login' %}"> Login</a></li>
+                                    <li><a href="#">  Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Books</h4>
+                                <ul>
+                                    <li><a href="{% url 'shop' %}">explore books</a></li>
+                                    <li><a href="{% url 'authors_page' %}">Authors</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Support</h4>
+                                <ul>
+                                    <li><a href="{% url 'about' %}">Frequently Asked Questions</a></li>
+                                    <li><a href="{% url 'about' %}">Terms & Conditions</a></li>
+                                    <li><a href="{% url 'about' %}">Privacy Policy</a></li>
+                                    <li><a href="{% url 'about' %}">Report a Payment Issue</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Footer End-->
+    </footer>
+    <!--? Search model Begin -->
+    <div class="search-model-box">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-btn">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Searching key.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search model end -->
+
+      
+     <!-- All JS Custom Plugins Link Here here -->
+     <script src="/static/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+     <!-- Jquery, Popper, Bootstrap -->
+     <script src="/static/assets/js/vendor/jquery-1.12.4.min.js"></script>
+     <script src="/static/assets/js/popper.min.js"></script>
+     <script src="/static/assets/js/bootstrap.min.js"></script>
+     <!-- Jquery Mobile Menu -->
+     <script src="/static/assets/js/jquery.slicknav.min.js"></script>
+ 
+     <!-- Jquery Slick , Owl-Carousel Plugins -->
+     <script src="/static/assets/js/owl.carousel.min.js"></script>
+     <script src="/static/assets/js/slick.min.js"></script>
+ 
+     <!-- One Page, Animated-HeadLin -->
+     <script src="/static/assets/js/wow.min.js"></script>
+     <script src="/static/assets/js/animated.headline.js"></script>
+     <script src="/static/assets/js/jquery.magnific-popup.js"></script>
+ 
+     <!-- Scroll up, nice-select, sticky -->
+     <script src="/static/assets/js/jquery.scrollUp.min.js"></script>
+     <script src="/static/assets/js/jquery.nice-select.min.js"></script>
+     <script src="/static/assets/js/jquery.sticky.js"></script>
+     
+     <!-- contact js -->
+     <script src="/static/assets/js/contact.js"></script>
+     <script src="/static/assets/js/jquery.form.js"></script>
+     <script src="/static/assets/js/jquery.validate.min.js"></script>
+     <script src="/static/assets/js/mail-script.js"></script>
+     <script src="/static/assets/js/jquery.ajaxchimp.min.js"></script>
+     
+     <!-- Jquery Plugins, main Jquery -->	
+     <script src="/static/assets/js/plugins.js"></script>
+     <script src="/static/assets/js/main.js"></script>
+
+     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+     
+         <!-- JavaScript -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+</body>
+    
+</html>

@@ -1,0 +1,96 @@
+{% extends 'temp_home/base.html' %}
+{% block title %} Checkout {% endblock title %}
+
+        {% block content %} 
+                 <!-- Hero Area Start-->
+                 <div class="slider-area ">
+                    <div class="hero-cap text-center">
+                        <h2>Checkout</h2>
+                    </div>
+                </div>
+                 <!-- Hero Area End-->
+                <!--================Checkout Area =================-->
+                <section class="checkout_area ">
+                    <div class="container order_box" style="background-color: #ebebeb;" >
+
+
+                      <div class="billing_details" >
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <h2>Billing Details</h2>
+                            {% if addresses %}
+                            <h5>Select an excisting address</h5>
+                            
+                            <form action="{% url 'place_order' %}" method="POST" >
+                              {% csrf_token %}
+                            
+                              <div class="col-md-12 form-group">
+                                <select class="country_select" name="address">
+                                  {% for address in addresses %}
+                                  <option value="{{ address.id }}">{{ address }},
+                                    <br>{{ address.house_name }}</option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                              <br>
+                              <br>
+                              <div class="col-md-12 ">
+                                <button class="btn_3 col-md-12 text-center" type="submit">Proceed to payment</button>
+                              </div>
+                              <br>
+                            </form>
+                            {% endif %}
+                            <form class="row contact_form" action="{% url 'add_user_address' %}" method="POST" novalidate="novalidate">
+                              {% csrf_token %}
+                              <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Full Name"/>
+                              </div>
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="number" name="number" placeholder="Phone number"/>
+                              </div>
+
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="hosue" name="house" placeholder="House Name"/>
+                              </div>
+
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="city" name="city" placeholder="Town/City"/>
+                              </div>
+
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="landmark" name="landmark" placeholder="Land mark"/>
+                              </div>
+
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="district" name="district" placeholder="District"/>
+                              </div>
+
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="state" name="state" placeholder="State"/>
+                              </div>
+
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="country" name="country" placeholder="Country"/>
+                              </div>
+
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Pincode"/>
+                               
+                              </div>
+                              
+                              <div class="col-md-12">
+                                <button class="btn_3 col-md-12 text-center" type="submit">Proceed to payment</button>
+                              </div>
+                              <br>
+                            </form>
+
+                            
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+        {% endblock content %}
+        

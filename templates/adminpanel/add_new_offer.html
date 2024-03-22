@@ -1,0 +1,72 @@
+{% extends 'adminpanel/base.html' %}
+{% block title %} add - offer {% endblock%}
+
+{% block content %}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body col-12">
+            <h4 class="card-title">Add offer</h4>
+            <p class="card-description">Add new os here</p>
+            <form class="forms-sample" method="POST" action="{% url 'add_offer' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="col-12">
+
+                        <div class="d-flex">
+                            <div class="form-group col-6">
+                                <label for="exampleInputName1">Offer Name</label>
+                                <input 
+                                type="text" 
+                                class="form-control" 
+                                id="offer_name" 
+                                name ="offer_name" 
+                                placeholder="enter offer name...."
+                                required>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="exampleInputName1">Offer percentage</label>
+                                <input 
+                                type="text" 
+                                class="form-control" 
+                                id ="off_percent"
+                                name ="off_percent"
+                                placeholder="enter enter the offer percentage....."
+                                required>
+                            </div>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="form-group col-6">
+                                <label for="exampleInputName1">Start Date</label>
+                                <input 
+                                type="date" 
+                                class="form-control" 
+                                id="start_date" 
+                                name ="start_date" 
+                                placeholder="enter sarting date...."
+                                required>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="exampleInputName1">End date</label>
+                                <input 
+                                type="date" 
+                                class="form-control" 
+                                id ="end_date"
+                                name ="end_date"
+                                placeholder="enter ending date"
+                                required>
+                            </div>
+                        </div> 
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    
+            </form>
+            <a href="adminpanel/adminlogin.html">
+                <button class="btn btn-dark">Cancel</button>
+
+            </a>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

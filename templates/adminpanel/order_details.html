@@ -1,0 +1,179 @@
+{% extends 'adminpanel/base.html' %}
+
+{% block title %}
+    orders-details
+{% endblock %}
+
+{% block content %} 
+<div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Order details</h4>
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">User name</label>
+          <div class="col-sm-9">
+            <p class="form-control">{{ order_item.order.user.username  }}</p>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Order Id</label>
+          <div class="col-sm-9">
+            <p class="form-control">{{ order_item.order.order_id }}</p>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Product</label>
+          <div class="col-sm-9">
+            <p class="form-control">{{ order_item.product.product_name }}</p>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Prodcut Cost</label>
+          <div class="col-sm-9">
+
+            <p class="form-control">{{ order_item.product_price }}</p>
+
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Payment Method</label>
+          <div class="col-sm-9">
+            <p class="form-control">{{ order_item.order.payment.payment_method }}</p>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Order Date</label>
+          <div class="col-sm-9">
+            <p class="form-control">{{ order_item.created_at }}</p>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Quantity</label>
+          <div class="col-sm-9">
+            <p class="form-control">{{ order_item.quantity }}</p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Total</label>
+          <div class="col-sm-9">
+            <p class="form-control">{{ order_item.sub_total }}</p>
+          </div>
+        </div>
+
+        <a href="{% url 'admin_order_list' %}">
+            <button class="btn btn-dark" >Back</button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+<div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Order details</h4>
+        <p class="card-description">To change the order status</p>
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Status</label>
+          <div class="col-sm-9">
+            <p class="form-control">{{ order_item.status }}</p>
+          </div>
+        </div>
+
+        <div class="modal-body align-content-left">
+            <form required action="{% url 'update_order_status' order_item.id %}"
+            class="mx-1 mx-md-4" method="POST">
+            {% csrf_token %}
+            
+            <!-- CAtegory-->
+            <div class="mb-12">
+                <label for="status">Status</label>
+                <select class="btn btn-primary dropdown-toggle" aria-label="Default select example" name="status" required>
+                <option class="dropdown-item" value="{{order_item.status}}" selected>{{order_item.status}}</option>
+                {% for status in order_item.ORDER_STATUS %}
+                <option value="{{ status.0 }}" >{{ status.0 }}</option>
+                {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-success">Update</button>
+            </div>
+
+
+        </form>
+
+        </div>
+        <br>
+        <div class="col-12">
+          <label class="col-12 col-form-label">Order address</label>
+          <br>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Full Name</label>
+            <div class="col-sm-9">
+              <p class="form-control">{{ order_item.order.order_address.fullname }}</p>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">House Name</label>
+            <div class="col-sm-9">
+              <p class="form-control">{{ order_item.order.order_address.house_name }}</p>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">City</label>
+            <div class="col-sm-9">
+              <p class="form-control">{{ order_item.order.order_address.city }}</p>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Landmark</label>
+            <div class="col-sm-9">
+              <p class="form-control">{{ order_item.order.order_address.landmark }}</p>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">District</label>
+            <div class="col-sm-9">
+              <p class="form-control">{{ order_item.order.order_address.district }}</p>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">State</label>
+            <div class="col-sm-9">
+              <p class="form-control">{{ order_item.order.order_address.state }}</p>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Pin Code</label>
+            <div class="col-sm-9">
+              <p class="form-control">{{ order_item.order.order_address.pin_code }}</p>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Country</label>
+            <div class="col-sm-9">
+              <p class="form-control">{{ order_item.order.order_address.country }}</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="{% url 'admin_order_list' %}">
+            <button class="btn btn-dark" >Back</button>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+
+
+  
+  
+
+{% endblock content %}

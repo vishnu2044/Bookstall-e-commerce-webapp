@@ -1,0 +1,104 @@
+{% extends 'adminpanel/base.html' %}
+{% block title %} edit - author {% endblock%}
+
+{% block content %}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body col-12">
+            <h4 class="card-title">Add Author</h4>
+            <p class="card-description">Add author details here</p>
+            <form class="forms-sample" method="POST" action="{% url 'edit_author' author.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="col-12">
+
+                        <div class="d-flex">
+                            <div class="form-group col-6">
+                                <label for="exampleInputName1">Name</label>
+                                <input 
+                                type="text" 
+                                class="form-control" 
+                                id="name" 
+                                name ="name" 
+                                placeholder= "{{ author.author_name}}"
+                                value= "{{ author.author_name}}" required>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="exampleInputName1">Nation</label>
+                                <input 
+                                type="text" 
+                                class="form-control" 
+                                id ="nation"
+                                name ="nation"
+                                placeholder="{{ author.author_nation }}"
+                                value="{{ author.author_nation }}" required>
+                            </div>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="form-group col-6">
+                                <label for="exampleInputName1">birth year</label>
+                                <input 
+                                type="number" 
+                                class="form-control" 
+                                id="birthyear"
+                                name = "birthyear" 
+                                placeholder="{{ author.author_birth_year }}"
+                                value="{{ author.author_birth_year }}" required>
+                            </div>
+                        </div>
+
+                    <div class="form-group">
+                        <label>Author Image</label>
+                        
+                            <input 
+                                type="file" 
+                                class="form-control file-upload-info" 
+                                name = "image"
+                                id="image"
+                                placeholder="Upload Image"                                 
+                            />
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleTextarea1">Quotes</label>
+                        <input 
+                            class="form-control" 
+                            id="quotes" 
+                            name="quotes" 
+                            placeholder="{{ author.author_quotes }}" 
+                            value="{{ author.author_quotes }}" 
+                            rows="5" required>
+                        
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleTextarea1">Description</label>
+                        <input 
+                        class="form-control" 
+                        id="description" 
+                        name="description" 
+                        placeholder="Enter author description" 
+                        value="{{ author.author_description  }}" 
+                        rows="15" 
+                        required>
+                        
+                        
+                      
+                    </div>
+                      
+
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    
+            </form>
+            <a href="adminpanel/adminlogin.html">
+                <button class="btn btn-dark">Cancel</button>
+
+            </a>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

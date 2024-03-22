@@ -1,0 +1,128 @@
+{% extends 'temp_home/base.html' %}
+{% block title %} User-Orders {% endblock title %}
+
+        {% block content %} 
+                 <!-- Hero Area Start-->
+                 <div class="">
+                    <div class=" text-center">
+                        <h2>My Orders</h2>
+                    </div>
+                </div>
+                 <!-- Hero Area End-->
+                 <!--================ user profile part start =================-->
+      <section class="confirmation_part ">
+        <div class="container">
+          <div class="row">
+
+
+
+
+            <div class="col-lg-12 col-lx-12">
+              <div class="single_confirmation_details">
+                  <div class="section-border single_confirmation_details p-1">
+                    <h3 class="mb-30">Order Details</h3>
+                    <div class="progress-">
+                      {% if current_page %}
+                      <div class="progress-table">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>S. No</th>
+                              <th>Prodcut Name</th>
+                              <th>Status</th>
+                              <th></th>
+                              <th>order details</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for order_item in current_page %}
+                            <tr>
+                              <td>{{ forloop.counter }}</td>
+                              <td>{{ order_item.product.product_name }}</td>
+                              <td> {{ order_item.status }}</td>
+                              
+                              {% if order_item.status == "cancelled" or order_item.status == "Cancelled" or order_item.status == "delivered" or order_item.status == "Delivered" %}
+                              <td> 
+                                <a href="{% url 'product_details' order_item.product.id %}" class="genric-btn info radius d-flex col-6"> Shop </a>
+                              </td>  
+                              {% else %}
+                              <td> 
+                                <a href="{% url 'user_order_cancel' order_item.id %}" class="genric-btn danger radius d-flex col-6">Cancel</a>
+                              </td> 
+                              {% endif %}
+                              <td>
+                                <a href="{% url 'user_order_detail' order_item.id %}" class="genric-btn primary radius d-flex col-6">Details</a>
+
+                              </td>
+                            </tr>     
+                            {% endfor %}
+
+                          </tbody>
+                        </table>
+                      </div>
+                                                  <!-- Display pagination links -->
+                                                  <div class="pagination">
+                                                    <span class="step-links">
+                                                        {% if current_page.has_previous %}
+                                                            <a href="?page=1" class='genric-btn danger radius'>&laquo; first</a>
+                                                            <a href="?page={{ current_page.previous_page_number }}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                                                                    <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
+                                                                  </svg>
+                                                                  
+                                                            </a>
+                                                        {% endif %}
+                        
+                                                        <span class="current">
+                                                            Page {{ current_page.number }} of {{ current_page.paginator.num_pages }}.
+                                                        </span>
+                        
+                                                        {% if current_page.has_next %}
+                                                            <a href="?page={{ current_page.next_page_number }}"class="text-black">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+                                                                    <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z"/>
+                                                                  </svg>
+                                                                  
+                                                                  
+                                                            </a>
+                                                            <a href="?page={{ current_page.paginator.num_pages }}" class = 'genric-btn danger radius'>last &raquo;</a>
+                                                        {% endif %}
+                                                    </span>
+                                                    </div>
+                                                    <br>
+                      {% else %}
+                      <h5 class="mb-30">you have no orders make an order</h5>
+                      <a href="{% url 'shop' %}" class="genric-btn info radius  col-3">Shop</a>
+                      {% endif %}
+
+                    </div>
+                  </div>
+                  
+
+                  
+                 
+
+          </div>
+        </div>
+  
+      </section>
+      <!--================ user profile part end =================-->
+
+
+        {% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        

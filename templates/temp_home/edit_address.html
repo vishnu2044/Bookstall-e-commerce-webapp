@@ -1,0 +1,81 @@
+{% extends 'temp_home/base.html' %}
+{% block title %} Checkout {% endblock title %}
+
+        {% block content %} 
+                 <!-- Hero Area Start-->
+                 <div class="slider-area ">
+                    <div class="text-center">
+                        <h2>Edit Address</h2>
+                    </div>
+                </div>
+                 <!-- Hero Area End-->
+                <!--================Checkout Area =================-->
+                <section class="checkout_area ">
+                    <div class="container order_box" style="background-color: #ebebeb;" >
+
+
+                      <div class="billing_details" >
+                        <div class="row">
+                            <form class="row contact_form" action="{% url 'edit_user_address' address.id %}" method="POST" novalidate="novalidate">
+                                {% csrf_token %}
+                                <div class="col-md-12 form-group">
+                                  <label for="">Full Name</label>
+                                  <input type="text" class="form-control" id="name" name="name" value="{{ address.fullname }}" placeholder="{{ address.fullname }}" required>
+                                </div>
+                                <div class="col-md-6 form-group ">
+                                  <label for="">House Name</label>
+                                  <input type="text" class="form-control" id="hosue" name="house" value="{{ address.house_name }}" placeholder="{{ address.house_name }}" required>
+                                </div>
+                              
+                                <div class="col-md-6 form-group ">
+                                  <label for="">Contact Number</label>
+                                  <input type="text" class="form-control"  id="number" name="number" value="{{ address.contact_number }}" placeholder="{{ address.contact_number }}" required>
+                                </div>
+                              
+                                <div class="col-md-6 form-group ">
+                                  <label for="">City</label>
+                                  <input type="text" class="form-control" id="city" name="city" value="{{ address.city }}" placeholder="{{ address.city }}" required>
+                                </div>
+                              
+                                <div class="col-md-6 form-group ">
+                                  <label for="">Land Mark</label>
+                                  <input type="text" class="form-control" id="landmark" name="landmark" value="{{ address.landmart }}" placeholder="{{ address.landmart }}" required>
+                                </div>
+                              
+                                <div class="col-md-6 form-group ">
+                                  <label for="">District</label>
+                                  <input type="text" class="form-control" id="district" name="district" value="{{ address.district }}" placeholder="{{ address.district }}" required>
+                                </div>
+                              
+                                <div class="col-md-6 form-group ">
+                                  <label for="">State</label>
+                                  <input type="text" class="form-control" id="state" name="state" value="{{ address.state }}" placeholder="{{ address.state }}" required>
+                                </div>
+                              
+                                <div class="col-md-6 form-group ">
+                                  <label for="">Country</label>
+                                  <input type="text" class="form-control" id="country" name="country" value="{{ address.country}}" placeholder="{{ address.country}}" required>
+                                </div>
+                              
+                                <div class="col-md-6 form-group ">
+                                  <label for="">Pincode</label>
+                                  <input type="text" class="form-control" id="pincode" name="pincode" value="{{ address.pincode }}" placeholder="{{ address.pincode }}" required>
+                                 
+                                </div>
+                              
+                                <div class="col-md-12">
+                                  <button class="btn_3 col-md-12 text-center" type="submit">Save</button>
+                                </div>
+                                <br>
+                              </form>
+                              
+                            
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+        {% endblock content %}
+        

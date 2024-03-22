@@ -1,0 +1,122 @@
+{% extends 'temp_home/base.html' %}
+{% block title %} User-Profile {% endblock title %}
+
+        {% block content %} 
+                 <!-- Hero Area Start-->
+                 <div class="">
+                    <div class=" text-center">
+                        <h2>User Profile</h2>
+                    </div>
+                </div>
+                 <!-- Hero Area End-->
+                 <!--================ user profile part start =================-->
+      <section class="confirmation_part ">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-lg-12 col-lx-12">
+              <div class="single_confirmation_details">
+                <h4>User Info</h4>
+                <ul>
+                  <li>
+                    <p>User Name</p><span>: {{ user.username }}</span>
+                  </li>
+                  <li>
+                    <p>First Name</p><span>: {{ user.first_name }}</span>
+                  </li>
+                  <li>
+                    <p>Last Name</p><span>: {{ user.last_name }}</span>
+                  </li>
+                  <li>
+                    <p>E-Mail</p><span>: {{ user.email }}</span>
+                  </li>
+                </ul>
+
+                  <br>
+                  <a href="{% url 'change_user_password' %}" class="genric-btn info radius  col-3">change password</a>
+                  <a href="{% url 'edit_user_profile' %}" class="genric-btn info radius  col-3">Edit Profile</a>
+                  <a href="{% url 'cart' %}" class="genric-btn success radius  col-3">Cart</a>
+                  <a href="{% url 'user_logout' %}" class="genric-btn danger radius  col-2">Logout</a>
+              </div>
+            </div>
+            <br>
+            <br>
+
+
+            <div class="col-lg-12 col-lx-12">
+              <div class="single_confirmation_details">
+                  <div class="section-top-border single_confirmation_details">
+
+                    <div class="row">
+                      <div class="col-6">
+                        <h3 class="mb-30">Address</h3>
+
+                      </div>
+                      <div class="col-6 text-right">
+                        <a href="{% url 'add_user_address_profile' %}" class="genric-btn info radius">Add Address </a>
+                      </div> 
+                    </div>
+
+                    {% if addresses %}
+                    <div class="progress-table">
+                      <div class="progress-table">
+                        
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>S No.</th>
+                              <th>House name</th>
+                              <th>   </th>
+                              <th>   </th>
+                            </tr>
+                          </thead>
+                          {% for address in addresses %}
+                          <tbody>
+                            
+                            <tr>
+                              <td>{{ forloop.counter }}</td>
+                              <td>{{ address.house_name }}</td>
+                              <td>
+                                <a href="{% url 'edit_user_address' address.id %}" class="genric-btn info-border rounded-50">Edit</a>
+                              </td>
+                              <td>
+                                <a href="{% url 'delete_user_address' address.id %}" class="genric-btn danger-border">Delete</a>
+                              </td>
+                            </tr>
+                            
+                          </tbody>
+                          {% endfor %}
+                        </table>
+
+
+                      </div>
+                    </div>
+                    {% else %}
+                    <p>No address added yet</p>
+                    {% endif %}
+                  </div>
+
+          </div>
+        </div>
+  
+      </section>
+      <!--================ user profile part end =================-->
+
+
+        {% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        

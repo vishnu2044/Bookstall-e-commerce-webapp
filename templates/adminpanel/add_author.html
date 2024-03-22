@@ -1,0 +1,95 @@
+{% extends 'adminpanel/base.html' %}
+{% block title %} add - author {% endblock%}
+
+{% block content %}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body col-12">
+            <h4 class="card-title">Add Author</h4>
+            <p class="card-description">Add author details here</p>
+            <form class="forms-sample" method="POST" action="{% url 'add_author' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="col-12">
+
+                        <div class="d-flex">
+                            <div class="form-group col-6">
+                                <label for="exampleInputName1">Name</label>
+                                <input 
+                                type="text" 
+                                class="form-control" 
+                                id="name" 
+                                name ="name" 
+                                placeholder="enter Author's name....">
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="exampleInputName1">Nation</label>
+                                <input 
+                                type="text" 
+                                class="form-control" 
+                                id ="nation"
+                                name ="nation"
+                                placeholder="enter Author's nation....">
+                            </div>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="form-group col-6">
+                                <label for="exampleInputName1">birth year</label>
+                                <input 
+                                type="number" 
+                                class="form-control" 
+                                id="birthyear"
+                                name = "birthyear" 
+                                placeholder="enter Author's Birth year....">
+                            </div>
+                        </div>
+
+                    <div class="form-group">
+                        <label>Author Image</label>
+                        
+                            <input 
+                                type="file" 
+                                class="form-control file-upload-info" 
+                                name = "image"
+                                id="image"
+                                 
+                                
+                            />
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleTextarea1">Quotes</label>
+                        <textarea 
+                        class ="form-control" 
+                        id ="quotes" 
+                        name ="quotes" 
+                        placeholder="Enter any quotes of author" 
+                        rows="5">
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleTextarea1">Description</label>
+                        <textarea 
+                        class ="form-control" 
+                        id ="description" 
+                        name ="description" 
+                        placeholder="Enter details about the author...." 
+                        rows="15"></textarea>
+                    </div>
+                      
+
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    
+            </form>
+            <a href="adminpanel/adminlogin.html">
+                <button class="btn btn-dark">Cancel</button>
+
+            </a>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

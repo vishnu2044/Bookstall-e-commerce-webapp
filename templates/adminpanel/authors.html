@@ -1,0 +1,91 @@
+{% extends 'adminpanel/base.html' %}
+
+{% block title %}
+    admin-authors
+{% endblock %}
+
+{% block content %} 
+<div class="row col-12 ">
+
+    <div class="col-12 grid-margin">
+
+      <div class="card">
+        <div class="col-12" >
+            <br>
+            <div class="add-items d-flex">
+                <input type="text" class="form-control todo-list-input" placeholder="Search...">
+                <a href="#" class="btn btn-primary ml-2">Search</a>
+                <a href="{% url 'add_author_page' %}" class="btn btn-success ml-2">Add </a>
+              </div>
+              
+
+        </div>
+
+        <div class="card-body">
+          <h4 class="card-title">Authors</h4>
+          <div class="table-responsive">
+            {% if current_page %}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th> Number </th>
+                  <th> Name </th>
+                  <th> Nation </th>
+                  <th> Birth year </th>
+                  <th> Action </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for author in current_page %}
+
+                <tr>
+                  <td> {{ forloop.counter }} </td>
+                  <td> {{ author.author_name }} </td>
+                  <td> {{ author.author_nation }} </td>
+                  <td> {{ author.author_birth_year }} </td>
+                <th>
+                    <a href="{% url 'edit_author' author.id %}">
+                      <button type="button" class="btn btn-primary btn-icon-text">Edit</button>
+                    </a>
+                  </th>
+                </tr>
+                {% endfor %}
+              
+              </tbody>
+            </table>
+            {% else %}
+            <h5 class="card-title">no authors details added yet</h5>
+            {% endif %}
+          </div>
+
+           <!-- Display pagination links -->
+           <div class="pagination">
+            <span class="step-links">
+                {% if current_page.has_previous %}
+                    <a href="?page=1" class="text-white">&laquo; first</a>
+                    <a href="?page={{ current_page.previous_page_number }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                          <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
+                        </svg>   
+                    </a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ current_page.number }} of {{ current_page.paginator.num_pages }}.
+                </span>
+
+                {% if current_page.has_next %}
+                    <a href="?page={{ current_page.next_page_number }}"class="text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+                            <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z"/>
+                          </svg> 
+                    </a>
+                    <a href="?page={{ current_page.paginator.num_pages }}" class="text-white">last &raquo;</a>
+                {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

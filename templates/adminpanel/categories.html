@@ -1,0 +1,160 @@
+{% extends 'adminpanel/base.html' %}
+{% block title %}
+    admin panel-Categories
+{% endblock %}
+        {% block content %}
+
+        <div class="row col-8">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+
+                  <h4 class="card-title">Categories</h4>
+                  <p>Add, edit or delete a category</p>
+                  {% if current_page  %}
+                  <div class="search-bar d-flex ">
+                        <input type="text" class="form-control search-input" placeholder="Search...">
+                        <button class="btn btn-primary search-button">Search</button>                  
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th> Number </th>
+                          <th> Name </th>
+                          <th> Slug </th>
+                          <th> action </th>
+                          <th> Edit </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for category in current_page  %}
+                        <tr>
+                          </td>
+                          <td>{{ forloop.counter }}</td>
+                          <td>{{ category.category_name }}</td>
+                          <td> {{ category.slug }} </td>
+
+                          {% if category.is_available %}
+                          <td> 
+                            <a href="{% url 'unlist_category' category.id %}">
+                              <div class="badge badge-outline-danger">Unlist</div>
+                            </a>
+                          </td>
+                        {% else %}
+                          <td> 
+                            <a href="{% url 'list_category' category.id %}">
+                              <div class="badge badge-outline-success">List</div>
+                            </a>
+                          </td>
+                        {% endif %}
+                        <th>
+                          <a href="{% url 'edit_catgory' category.id %}">
+                            <button type="button" class="btn btn-primary btn-icon-text">Edit</button>
+                          </a>
+                        </th>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                  {% else %}
+                  <h4 class="card-title">No item added yet</h4>
+                  
+                  {% endif %}
+                   <!-- Display pagination links -->
+           <div class="pagination">
+            <span class="step-links">
+                {% if current_page.has_previous %}
+                    <a href="?page=1" class="btn btn-success">&laquo; first</a>
+                    <a href="?page={{ current_page.previous_page_number }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                            <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
+                          </svg>
+                          
+                    </a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ current_page.number }} of {{ current_page.paginator.num_pages }}.
+                </span>
+
+                {% if current_page.has_next %}
+                    <a href="?page={{ current_page.next_page_number }}"class="text-black">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-arrow-right-square-fill bg-dark" viewBox="0 0 16 16">
+                            <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z"/>
+                          </svg>
+                          
+                          
+                    </a>
+                    <a href="?page={{ current_page.paginator.num_pages }}" class="btn btn-success">last &raquo;</a>
+                {% endif %}
+            </span>
+            </div>
+
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-4 grid-margin stretch-card">
+
+
+
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Add New Category</h4>
+                <form class="forms-sample" action="{% url 'add_category' %}" method = "POST">
+                    {% csrf_token %}
+                  <div class="form-group">
+                    <label for="exampleInputUsername1">Name</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="name" 
+                        name='name' 
+                        placeholder="name of the category"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Slug</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        name='slug' 
+                        id="slug" 
+                        placeholder="slug field"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Description</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        name="description" 
+                        id="description" 
+                        placeholder="Write a small description....."
+                    />
+                  </div>
+                  <div class="form-group col-6">
+                    <label for="exampleInputPassword1">offers</label>
+                    <select class="form-control" id="offer_name" name='offer_name'>
+                        <option value="">select offer</option>
+                        {% for offer  in offers %}
+                        <option value="{{ offer.id }}">{{ offer.name }}</option>
+                        {% endfor %}
+                    </select>
+                  </div>
+
+                  <div class="form-check form-check-muted m-0">
+                    
+                    <label class="form-check-label text-white"><input type="checkbox" class="form-check-input" name="is_available"> Is Available </label>
+                  </div>
+                  <br>
+                  <button type="submit" class="btn btn-primary mr-2">Create Category</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        {% endblock content %}
+      

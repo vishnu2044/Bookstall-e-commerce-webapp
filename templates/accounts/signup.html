@@ -1,0 +1,241 @@
+{% load static %}
+<!doctype html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>BookStall Sign-up</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/assets/img/favicon.ico">
+    <!-- CSS here -->
+        <link rel="stylesheet" href="/static/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/assets/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="/static/assets/css/flaticon.css">
+        <link rel="stylesheet" href="/static/assets/css/slicknav.css">
+        <link rel="stylesheet" href="/static/assets/css/animate.min.css">
+        <link rel="stylesheet" href="/static/assets/css/magnific-popup.css">
+        <link rel="stylesheet" href="/static/assets/css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="/static/assets/css/themify-icons.css">
+        <link rel="stylesheet" href="/static/assets/css/slick.css">
+        <link rel="stylesheet" href="/static/assets/css/nice-select.css">
+        <link rel="stylesheet" href="/static/assets/css/style.css">
+        <link rel="stylesheet" href="/static/assets/css/signup.css">
+</head>
+<body>
+    <header>
+
+    <main>
+        <!-- Hero Area Start-->
+<!-- Hero Area End-->
+<!--================signup_part Area =================-->
+<section class="vh-100 gradient-custom">
+    <div class="slider-area ">
+        <div class="single-slider  d-flex align-items-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap text-center">
+                            <h2>Signup</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container py-5 h-100">
+        {% if otp %}
+<div class="container">
+  <div class="title">E-mail OTP verification</div>
+  <p class="text-center"><strong>check your mail for otp</strong></p>
+  <div class="content">
+    <form method="post" action="{% url 'signup' %}">
+      {% csrf_token %}
+      {% if messages%}
+                      {% for message in messages%}
+                      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong></strong>{{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                      {%endfor%}
+                      {%endif%} 
+      <div class="user-details">
+        <div class="input-box">
+          <input  type="hidden" name="email" value="{{usr.email}}">
+        </div>
+        <div class="input-box">
+          <input required minlength="4" maxlength="4" type="text" class="form-control" id="name" name="otp" placeholder="Enter Your OTP" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Your OTP'">
+        </div>
+      <div >
+        <input class="genric-btn danger" type="submit" value="Confirm OTP">
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+{% else %}
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+
+                        <!-- Notifications container -->
+                        <div class="container">
+                            {% for message in messages %}
+                            <div class="alert 
+                            {% if message.tags == 'success' %}alert-success
+                            {% elif message.tags == 'error' %}alert-danger
+                            {% elif message.tags == 'warning' %}alert-warning
+                            {% endif %} alert-dismissible fade show" role="alert">
+                                <strong>Message:</strong> {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    
+                        <!-- Rest of your content -->
+                    
+                    <div class="card-body p-4 p-md-5">
+                        <form  action="{% url 'signup' %}" method="POST">
+                            {% csrf_token %}
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4 d-flex align-items-center pb-2">
+                                    <div class="form-outline datepicker w-100">
+                                        <label for="name" class="form-label"><strong>First Name</strong></label>
+                                        <input type="text" class="form-control form-control-lg" id="firstname" name="firstname" placeholder="Enter your First name" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-4 d-flex align-items-center pb-2">
+                                    <div class="form-outline datepicker w-100">
+                                        <label for="name" class="form-label"><strong>Last Name</strong></label>
+                                        <input type="text" class="form-control form-control-lg" id="lastname" name="lastname" placeholder="Enter your Last name" />
+                                    </div>
+                                </div>                        
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label for="username" class="form-label"><strong>Username</strong></label>
+                                        <input type="username" id="username" class="form-control form-control-lg" name="username" placeholder="Enter Username" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label"><strong>Mobile number</strong></label>
+                                        <input type="tel" class="form-control form-control-lg" name="phno" placeholder="Enter Mobile number" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 mb-4 d-flex align-items-center">
+                                    <div class="form-outline datepicker w-100">
+                                        <label for="email" class="form-label"><strong>E-mail</strong></label>
+                                        <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="Enter your E-mail id" />  
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-5 pb-2">
+                                    <div class="form-outline">
+                                        <label for="Password" class="form-label"><strong>Password</strong></label>
+                                        <input type="password" id="pass1" class="form-control form-control-lg" name="pass1" placeholder="Enter Password" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-5 pb-2">
+                                    <div class="form-outline">
+                                        <label for="Password" class="form-label"><strong>Confirm Password</strong></label>
+                                        <input type="password" id="pass2" class="form-control form-control-lg" name="pass2" placeholder="Confirm Password" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pl-5">
+                                <button type="submit" value="submit" class="btn_3 mt-5 pt-4 col-md-10 " >
+                                    Sign  up
+                                </button>
+                            </div >
+
+                        </form>
+                    
+
+                        <div class="pl-5 col-12">
+                            <a href="{% url 'handle_login' %}"><button type="" value="" class="btn_3 mt-5 pt-4 col-md-4 ">
+                                log in page
+                            </button></a>
+                            <a href="{% url 'home' %}"><button type="" value="" class="btn_3 mt-5 pt-4 col-md-6 ">
+                                back to Home
+                            </button></a>
+                        </div >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        
+
+        
+</section>
+{% endif %}
+<!--================login_part end =================-->
+
+    </main>
+
+    <!--? Search model Begin -->
+    <div class="search-model-box">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-btn">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Searching key.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search model end -->
+    
+    <!-- JS here -->
+
+    <script src="./static/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="./static/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="./static/assets/js/popper.min.js"></script>
+    <script src="./static/assets/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="./assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="./static/assets/js/owl.carousel.min.js"></script>
+    <script src="./static/assets/js/slick.min.js"></script>
+
+    <!-- One Page, Animated-HeadLin -->
+    <script src="./static/assets/js/wow.min.js"></script>
+    <script src="./static/assets/js/animated.headline.js"></script>
+    
+    <!-- Scroll up, nice-select, sticky -->
+    <script src="./static/assets/js/jquery.scrollUp.min.js"></script>
+    <script src="./static/assets/js/jquery.nice-select.min.js"></script>
+    <script src="./static/assets/js/jquery.sticky.js"></script>
+    <script src="./static/assets/js/jquery.magnific-popup.js"></script>
+
+    <!-- contact js -->
+    <script src="./static/assets/js/contact.js"></script>
+    <script src="./static/assets/js/jquery.form.js"></script>
+    <script src="./static/assets/js/jquery.validate.min.js"></script>
+    <script src="./static/assets/js/mail-script.js"></script>
+    <script src="./static/assets/js/jquery.ajaxchimp.min.js"></script>
+    
+    <!-- Jquery Plugins, main Jquery -->	
+    <script src="./static/assets/js/plugins.js"></script>
+    <script src="./static/assets/js/main.js"></script>
+
+</body>
+    
+</html>

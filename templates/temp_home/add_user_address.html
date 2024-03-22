@@ -1,0 +1,75 @@
+{% extends 'temp_home/base.html' %}
+{% block title %} Add address {% endblock title %}
+
+        {% block content %} 
+                 <!-- Hero Area Start-->
+                 <div class="slider-area ">
+                    <div class="hero-cap text-center">
+                        <h2>Add address</h2>
+                    </div>
+                </div>
+                 <!-- Hero Area End-->
+                <!--================Checkout Area =================-->
+                <section class="checkout_area ">
+                    <div class="container order_box" style="background-color: #ebebeb;" >
+
+
+                      <div class="billing_details" >
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <h2>Add a new user address</h2>
+                                        
+                            <form class="row contact_form" action="{% url 'add_user_address_profile' %}" method="POST" novalidate="novalidate">
+                              {% csrf_token %}
+                              <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Full Name"/>
+                              </div>
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="number" name="number" placeholder="Phone number"/>
+                              </div>
+
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="hosue" name="house" placeholder="House Name"/>
+                              </div>
+
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="city" name="city" placeholder="Town/City"/>
+                              </div>
+
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="landmark" name="landmark" placeholder="Land mark"/>
+                              </div>
+
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="district" name="district" placeholder="District"/>
+                              </div>
+
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="state" name="state" placeholder="State"/>
+                              </div>
+
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="country" name="country" placeholder="Country"/>
+                              </div>
+
+                              <div class="col-md-6 form-group ">
+                                <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Pincode"/>
+                               
+                              </div>
+                              
+                              <div class="col-md-12">
+                                <button class="btn_3 col-md-12 text-center" type="submit">Save address</button>
+                              </div>
+                              <br>
+                            </form>
+
+                            
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+        {% endblock content %}
+        

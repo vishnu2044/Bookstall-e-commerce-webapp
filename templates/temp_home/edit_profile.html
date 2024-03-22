@@ -1,0 +1,84 @@
+{% extends 'temp_home/base.html' %}
+{% block title %} User-Profile {% endblock title %}
+
+        {% block content %} 
+                 <!-- Hero Area Start-->
+                 <div class="">
+                    <div class=" text-center">
+                        <h2>Edit Profile</h2>
+                    </div>
+                </div>
+                 <!-- Hero Area End-->
+    <!--================ user profile part start =================-->
+      <section class="confirmation_part ">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-lg-12 col-lx-12">
+              <div class="single_confirmation_details">
+                <div class="col-lg-10">
+                    <h5>Edit your personal details</h5>
+                    <form class="row contact_form" id='edit-user' action-"{% url 'edit_user_profile' %}" method='POST'>
+                        {% csrf_token %}
+                        <div class="col-md-12 form-group">
+                          <label for="">Username</label>
+                          <input 
+                          type="text" 
+                          class="form-control" 
+                          id="username" 
+                          name="username" 
+                          value="{{ user.username }}" 
+                          palceholder = "{{ user.username }}" 
+                          required/>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label for="">First Name</label>
+                          <input type="text" class="form-control" id="firstname" name="firstname" value="{{ user.first_name }}" required/>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label for="">Last Name</label>
+                          <input type="text" class="form-control" id="lastname" name="lastname" value="{{ user.last_name }}" required/>
+                        </div>
+                        <div class="col-md-12 form-group">
+                          <label for="">E-Mail</label>
+                          <input type="text" class="form-control" id="email" name="email" value="{{ user.email }}" required/>
+                        </div>
+                        <div class="col-md-12 form-group">
+                          <button type="submit" class="btn_3 col-5 justify-content-center">Update</button>
+                        </div>
+                      </form>
+
+
+            
+                  </div>
+
+           
+                  
+
+                  
+                 
+
+          </div>
+        </div>
+  
+      </section>
+      <!--================ user profile part end =================-->
+
+
+        {% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        

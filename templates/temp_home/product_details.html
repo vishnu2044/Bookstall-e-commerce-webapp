@@ -1,0 +1,180 @@
+{% extends 'temp_home/base.html' %}
+{% block title %} Product detail {% endblock title %}
+
+        {% block content %} 
+        
+        <div class="slider-area ">
+            <div class="slider-active ">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        
+                            <div class="swiper-slide">
+                                <!-- Single Slider -->
+                                <div class="single-slider slider-height d-flex align-items-center slide-bg" style="background-color: #ffffff;">
+
+                                    <div class="container">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                                <div class="hero__caption">
+                                                    <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms" >{{ product.product_name }}</h1>
+                                                    <p data-animation="fadeInLeft" data-delay=".7s" data-duration="2000ms" >Author: {{ product.author }}</p>
+                                                    <!-- Hero-btn -->
+                                                    <div class="d-flex">
+                                                        {% if product.stock > 0 %}
+                                                        <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s" data-duration="2000ms">
+                                                            <a href="{% url 'add_cart' product.id %}" class="btn hero-btn text-white">Add TO Cart</a>
+                                                        </div>
+                                                        {% else %}
+                                                        <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s" data-duration="2000ms">
+                                                            <a href="" class="btn hero-btn text-white">Out of stock</a>
+                                                        </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <br>
+                                                    <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s" data-duration="2000ms">
+                                                        <a href="{% url 'add_to_wishlist' product.id %}" class="btn hero-btn text-white">Wish List</a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 d-none d-sm-block">
+                                                <div class="hero__img" data-animation="bounceIn" data-delay=".4s">
+                                                    <img src="{{ product.images.url }}" alt="" class=" heartbeat">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+        </div>
+        <div class="section-top-border p-4">
+            <div class="row p-4 ">
+                <div class="col-10 p-4 ">
+                    <div class="popular-caption">
+                        {% if product.category.offer %}
+                        <h3>
+                            <span>Price : <del>&#8377;{{ product.price }}</del><span class='text-success'> {{ product.get_offer_price_by_category }}</span></span> 
+                            <br>
+                            <span class='text-danger'>{{ product.category.offer.off_percent }} % OFF</span>  
+                        </h3>  
+                        {% elif product.offer %}
+                        <h3>
+                            <span>Price : <del>&#8377;{{ product.price }}</del> <span class='text-success'>{{ product.get_offer_price }}</span> </span> 
+                            <br>
+                            <span class='text-danger'>{{ product.offer.off_percent }} % OFF</span>  
+                        </h3>  
+                        {% else %}
+                        <h3>
+                            <span>Price : ₹ {{ product.price }}</span> 
+
+                        </h3>  
+                        {% endif %}
+                    </div>
+                    <p>{{ product.product_description }}</p>
+                </div>
+            </div>
+            <h3 class="mb-30 text-white">Author: {{ product.author.author_name }}</h3>
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="{{ product.author.author_image.url }}" alt="" class="img-fluid">
+                </div>
+                <div class="col-md-9 mt-sm-20">
+                    <p>{{ product.author.author_description }}</p>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div class="d-flex">
+
+            <div class="col-8" style="background-color: rgb(255, 255, 255); border: 2px solid rgb(237, 237, 237);">
+                <h2>reviews</h2>
+
+                <h5>
+                    {% if review_rate >= 4 %}
+                        <span style="color: rgb(3, 153, 25);">Rating: {{ review_rate }}</span>
+                    {% elif review_rate >= 3 %}
+                        <span style="color: rgb(189, 199, 49);">Rating: {{ review_rate }}</span>
+                    {% elif review_rate == 0 %}
+                        <span>No reviews</span>
+                    {% else %}
+                        <span style="color: red;">Rating: {{ review_rate }}</span>
+                    {% endif %}
+                </h5>
+                
+                <div class="col-12">
+                    {% for review in product_reviews %}
+                    <div class="comment-list" style="background-color: rgb(255, 255, 255); border: 2px solid rgb(246, 242, 242);" >
+                        <div class="single-comment justify-content-between d-flex">
+                            <div class="user justify-content-between p-3">
+                                <div class="desc">
+                                    <div class="d-flex align-items-center"> <!-- Add this div for icon -->
+                                        <i class="fa fa-user-circle"></i> <!-- Assuming you're using Font Awesome for icons -->
+                                        <h5 class="ml-2">{{ review.user.first_name }} {{ review.user.last_name }}, 
+                                            {% if review.rating == 5 %}
+                                                <span style="color: rgb(3, 153, 25);">Rating: {{ review.rating }}</span>
+                                            {% elif review.rating == 4 %}
+                                                <span style="color: rgb(3, 153, 25);">Rating: {{ review.rating }}</span>
+                                            {% elif review.rating == 3 %}
+                                                <span style="color: rgb(189, 199, 49);">Rating: {{ review.rating }}</span>
+                                            {% else %}
+                                                <span style="color: red;">Rating: {{ review.rating }}</span>
+                                            {% endif %}
+                                        </h5>
+                                    </div>
+                                    <p class="comment">{{ review.text }}</p>
+                                    <div class="reply-btn">
+                                        <h6 class='text-black'>{{ review.created_at }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div class="form-group col-12">
+                        {% if review_rate == 0 %}
+                        {% else %}
+                        <a href="{% url 'all_reviews' product.id %}" class="genric-btn primary circle">More Comments</a>
+                        {% endif %}
+
+                    </div>
+                </div>
+                
+                <br>
+
+            </div>
+
+            <div class="col-4" style="background-color: rgb(255, 255, 255); border: 2px solid rgb(246, 242, 242);" >
+               <div class=" p-4" style="background-color: rgb(255, 255, 255)">
+                 <h4>Add a review</h4>
+                 <form class="form-contact contact_form" action="{% url 'user_product_review' product.id %}" method="post">
+                    {% csrf_token %}
+                  <div class="row col-12 d-flex">
+                        <div class="form-group col-12">
+                            <textarea class="form-control w-100" name="review" id="review"  rows="4"  placeholder=" Enter Message"></textarea>
+                        </div>
+                        <div class="form-group col-12">
+                            <input class="form-control valid" name="rating" id="rating" type="number" placeholder="Enter rating from 1 to 5..">
+                        </div>
+                  </div>
+                  <div class="form-group col-12">
+                      <button type="submit" class="genric-btn danger circle">Send</button>
+                  </div>
+              </form>
+               </div>
+             </div>
+             
+
+        </div>
+        <br>
+        
+
+      
+        <!-- Watch Choice  End-->
+        {% endblock content %}
+        
